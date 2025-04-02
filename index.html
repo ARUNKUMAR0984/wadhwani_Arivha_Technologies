@@ -1,0 +1,825 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Syllo - Smarter Learning for State Board Students</title>
+    <style>
+        :root {
+            --primary: #4361ee;
+            --secondary: #3f37c9;
+            --accent: #4cc9f0;
+            --light: #f8f9fa;
+            --dark: #212529;
+            --success: #4bb543;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--dark);
+            background-color: #f4f7fb;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        header {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+        
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: var(--primary);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo span {
+            background: var(--primary);
+            color: white;
+            padding: 2px 8px;
+            border-radius: 4px;
+            margin-right: 5px;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            margin-left: 25px;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 12px 28px;
+            background-color: var(--primary);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            transition: transform 0.3s, background-color 0.3s;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            text-align: center;
+        }
+        
+        .btn:hover {
+            background-color: var(--secondary);
+            transform: translateY(-2px);
+        }
+        
+        .btn-outline {
+            background-color: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+        }
+        
+        .btn-outline:hover {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .hero {
+            padding: 80px 0;
+            text-align: center;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        }
+        
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .hero h1 {
+            font-size: 46px;
+            margin-bottom: 20px;
+            color: var(--dark);
+            line-height: 1.2;
+        }
+        
+        .hero p {
+            font-size: 20px;
+            margin-bottom: 30px;
+            color: #495057;
+        }
+        
+        .hero-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 30px;
+        }
+        
+        .app-badge {
+            width: 150px;
+            transition: transform 0.3s;
+        }
+        
+        .app-badge:hover {
+            transform: translateY(-3px);
+        }
+        
+        .features {
+            padding: 80px 0;
+            background-color: white;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        
+        .section-title h2 {
+            font-size: 36px;
+            margin-bottom: 15px;
+        }
+        
+        .section-title p {
+            font-size: 18px;
+            color: #6c757d;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+        
+        .feature-card {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            padding: 30px;
+            transition: transform 0.3s;
+            border: 1px solid #eee;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .feature-icon {
+            font-size: 36px;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+        
+        .feature-card h3 {
+            font-size: 20px;
+            margin-bottom: 15px;
+        }
+        
+        .feature-card p {
+            color: #6c757d;
+        }
+        
+        .how-it-works {
+            padding: 80px 0;
+            background-color: #f8f9fa;
+        }
+        
+        .steps {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 50px;
+            flex-wrap: wrap;
+        }
+        
+        .step {
+            flex: 1;
+            min-width: 250px;
+            text-align: center;
+            padding: 0 20px;
+            position: relative;
+            margin-bottom: 30px;
+        }
+        
+        .step-number {
+            width: 50px;
+            height: 50px;
+            background-color: var(--primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 20px;
+            font-weight: bold;
+            margin: 0 auto 20px;
+        }
+        
+        .step h3 {
+            margin-bottom: 15px;
+        }
+        
+        .testimonials {
+            padding: 80px 0;
+            background-color: white;
+        }
+        
+        .testimonial-container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        .testimonial-card {
+            background-color: #f8f9fa;
+            padding: 30px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            position: relative;
+        }
+        
+        .testimonial-card:before {
+            content: """;
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            font-size: 60px;
+            color: #e9ecef;
+            font-family: Georgia, serif;
+            line-height: 1;
+        }
+        
+        .testimonial-text {
+            margin-bottom: 20px;
+            font-size: 18px;
+            line-height: 1.6;
+            color: #495057;
+        }
+        
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+        }
+        
+        .author-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            margin-right: 15px;
+            background-color: #ccc;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .author-details h4 {
+            margin-bottom: 5px;
+        }
+        
+        .author-details p {
+            color: #6c757d;
+        }
+        
+        /* Pricing Section Styles */
+        .pricing {
+            padding: 80px 0;
+            background-color: #f8f9fa;
+        }
+        
+        .pricing-container {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+            margin-top: 50px;
+        }
+        
+        .pricing-plan {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            padding: 40px 30px;
+            flex: 1;
+            min-width: 280px;
+            max-width: 350px;
+            text-align: center;
+            transition: transform 0.3s;
+            position: relative;
+            border: 1px solid #eee;
+        }
+        
+        .pricing-plan:hover {
+            transform: translateY(-10px);
+        }
+        
+        .popular-tag {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background-color: var(--success);
+            color: white;
+            font-size: 12px;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-weight: bold;
+        }
+        
+        .plan-name {
+            font-size: 24px;
+            margin-bottom: 15px;
+            color: var(--dark);
+        }
+        
+        .plan-price {
+            font-size: 42px;
+            font-weight: bold;
+            color: var(--primary);
+            margin-bottom: 5px;
+        }
+        
+        .plan-duration {
+            color: #6c757d;
+            margin-bottom: 30px;
+            display: block;
+        }
+        
+        .plan-features {
+            list-style: none;
+            margin-bottom: 30px;
+        }
+        
+        .plan-features li {
+            padding: 10px 0;
+            border-bottom: 1px solid #f1f1f1;
+            color: #495057;
+        }
+        
+        .plan-features li:last-child {
+            border-bottom: none;
+        }
+        
+        .feature-included {
+            color: var(--success);
+            margin-right: 8px;
+        }
+        
+        .feature-excluded {
+            color: #dc3545;
+            margin-right: 8px;
+        }
+        
+        .cta {
+            padding: 100px 0;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            text-align: center;
+        }
+        
+        .cta h2 {
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+        
+        .cta p {
+            font-size: 18px;
+            margin-bottom: 30px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .count-box {
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+        }
+        
+        .count-box h3 {
+            font-size: 36px;
+            margin-bottom: 5px;
+        }
+        
+        footer {
+            padding: 60px 0 30px;
+            background-color: #212529;
+            color: white;
+        }
+        
+        .footer-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            margin-bottom: 40px;
+        }
+        
+        .footer-section {
+            flex: 1;
+            min-width: 250px;
+            margin-bottom: 30px;
+            padding-right: 20px;
+        }
+        
+        .footer-section h3 {
+            margin-bottom: 20px;
+            color: white;
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-links a {
+            color: #adb5bd;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: white;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .social-link {
+            color: white;
+            font-size: 18px;
+            transition: color 0.3s;
+        }
+        
+        .social-link:hover {
+            color: var(--accent);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #6c757d;
+        }
+        
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .hero h1 {
+                font-size: 32px;
+            }
+            
+            .hero p {
+                font-size: 18px;
+            }
+            
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .steps {
+                flex-direction: column;
+            }
+            
+            .step {
+                margin-bottom: 40px;
+            }
+            
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .btn {
+                width: 100%;
+                max-width: 250px;
+                margin-bottom: 15px;
+            }
+            
+            .pricing-plan {
+                margin-bottom: 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container nav-container">
+            <a href="#" class="logo"><span>S</span>Syllo</a>
+            <ul class="nav-links">
+                <li><a href="#features">Features</a></li>
+                <li><a href="#how-it-works">How It Works</a></li>
+                <li><a href="#pricing">Pricing</a></li>
+                <li><a href="#testimonials">Testimonials</a></li>
+                <li><a href="#" class="btn">Download Now</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container hero-content">
+            <h1>Smarter Learning for State Board Students</h1>
+            <p>Most EdTech apps focus on CBSE & JEE, leaving millions without structured, affordable learning. Syllo changes that.</p>
+            <div class="hero-buttons">
+                <a href="#" class="btn">Download Now</a>
+                <a href="#features" class="btn btn-outline">Learn More</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="features" id="features">
+        <div class="container">
+            <div class="section-title">
+                <h2>Why Choose Syllo?</h2>
+                <p>Designed specifically for state board students, our app provides everything you need to excel in your exams.</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🤖</div>
+                    <h3>AI-Powered Doubt Solving</h3>
+                    <p>Get instant answers to your questions anytime, day or night. Our AI understands state board syllabus and provides accurate solutions.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">👨‍🏫</div>
+                    <h3>Expert Video Calls</h3>
+                    <p>Talk to mentors when you need help with complex topics. Book a session with subject experts who understand your curriculum.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📚</div>
+                    <h3>Downloadable Study Materials</h3>
+                    <p>Access state board textbooks, notes & solutions offline. Study anywhere, even without internet connection.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">💰</div>
+                    <h3>Affordable Pricing</h3>
+                    <p>Just ₹49/month or use free with ads. Quality education shouldn't be expensive. We make learning accessible to everyone.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="how-it-works" id="how-it-works">
+        <div class="container">
+            <div class="section-title">
+                <h2>How Syllo Works</h2>
+                <p>Getting help with your studies has never been easier.</p>
+            </div>
+            <div class="steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <h3>Download the App</h3>
+                    <p>Get Syllo from Google Play Store or App Store. Free to download and create an account.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <h3>Ask Your Questions</h3>
+                    <p>Simply type your doubt or upload a photo of your problem to get instant solutions.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <h3>Get Instant Answers</h3>
+                    <p>Our AI provides step-by-step explanations to help you understand concepts thoroughly.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <h3>Book Expert Calls</h3>
+                    <p>Need more help? Schedule a video call with a subject expert for personalized guidance.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="benefits" id="benefits">
+        <div class="container">
+            <div class="section-title">
+                <h2>Benefits of Learning with Syllo</h2>
+                <p>See how Syllo can transform your academic performance and reduce study stress.</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">📈</div>
+                    <h3>Improved Exam Scores</h3>
+                    <p>Students using Syllo report an average 15% improvement in test scores within the first 3 months of use.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">⏰</div>
+                    <h3>Save Study Time</h3>
+                    <p>Get instant answers instead of spending hours searching for solutions. Focus your time on understanding concepts, not hunting for help.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🧠</div>
+                    <h3>Better Concept Clarity</h3>
+                    <p>Our step-by-step explanations ensure you understand the 'why' behind each solution, not just memorize answers.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📱</div>
+                    <h3>Study Anywhere, Anytime</h3>
+                    <p>Access your study materials on the go, even offline. Turn travel time or waiting time into productive study sessions.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">😌</div>
+                    <h3>Reduced Study Anxiety</h3>
+                    <p>Having reliable help at your fingertips reduces exam stress and builds confidence in your ability to tackle difficult subjects.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🏆</div>
+                    <h3>Competitive Edge</h3>
+                    <p>Get the support typically available only to CBSE and coaching students, helping you stay competitive in college admissions and beyond.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- New Pricing Section -->
+    <section class="pricing" id="pricing">
+        <div class="container">
+            <div class="section-title">
+                <h2>Simple, Affordable Pricing</h2>
+                <p>Choose the plan that works best for your learning needs.</p>
+            </div>
+            <div class="pricing-container">
+                <div class="pricing-plan">
+                    <div class="plan-name">Free Plan</div>
+                    <div class="plan-price">₹0</div>
+                    <span class="plan-duration">Forever Free</span>
+                    <ul class="plan-features">
+                        <li><span class="feature-included">✓</span> Basic AI doubt solving</li>
+                        <li><span class="feature-included">✓</span> Access to free study materials</li>
+                        <li><span class="feature-included">✓</span> Community forum access</li>
+                        <li><span class="feature-excluded">✗</span> Ad-free experience</li>
+                        <li><span class="feature-excluded">✗</span> Unlimited AI queries</li>
+                        <li><span class="feature-excluded">✗</span> Expert video calls</li>
+                    </ul>
+                    <a href="#" class="btn btn-outline">Get Started</a>
+                </div>
+                <div class="pricing-plan">
+                    <div class="popular-tag">Most Popular</div>
+                    <div class="plan-name">Premium Plan</div>
+                    <div class="plan-price">₹49</div>
+                    <span class="plan-duration">per month</span>
+                    <ul class="plan-features">
+                        <li><span class="feature-included">✓</span> Unlimited AI doubt solving</li>
+                        <li><span class="feature-included">✓</span> Complete ad-free experience</li>
+                        <li><span class="feature-included">✓</span> Full access to study materials</li>
+                        <li><span class="feature-included">✓</span> Practice tests & quizzes</li>
+                        <li><span class="feature-included">✓</span> Priority support</li>
+                        <li><span class="feature-excluded">✗</span> Expert video calls</li>
+                    </ul>
+                    <a href="#" class="btn">Subscribe Now</a>
+                </div>
+                <div class="pricing-plan">
+                    <div class="plan-name">Expert Call</div>
+                    <div class="plan-price">₹79</div>
+                    <span class="plan-duration">per session</span>
+                    <ul class="plan-features">
+                        <li><span class="feature-included">✓</span> One-on-one video call</li>
+                        <li><span class="feature-included">✓</span> 30-minute session with expert</li>
+                        <li><span class="feature-included">✓</span> Choose your subject specialist</li>
+                        <li><span class="feature-included">✓</span> Share screens & documents</li>
+                        <li><span class="feature-included">✓</span> Personalized guidance</li>
+                        <li><span class="feature-included">✓</span> Session recording</li>
+                    </ul>
+                    <a href="#" class="btn">Book a Session</a>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+
+    <section class="testimonials" id="testimonials">
+        <div class="container">
+            <div class="section-title">
+                <h2>What Students Say</h2>
+                <p>Hear from students who have improved their grades with Syllo.</p>
+            </div>
+            <div class="testimonial-container">
+                <div class="testimonial-card">
+                    <p class="testimonial-text">"Syllo made my exam prep so much easier! The AI answers are amazing and I don't have to struggle with doubts anymore. The app understands exactly what I need as a state board student."</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">P</div>
+                        <div class="author-details">
+                            <h4>Priya</h4>
+                            <p>Class 12, Tamil Nadu State Board</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <p class="testimonial-text">"Affordable and super helpful! The video call feature is a game-changer when I'm stuck with difficult topics. I've recommended Syllo to all my classmates."</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">R</div>
+                        <div class="author-details">
+                            <h4>Rahul</h4>
+                            <p>Class 10, Maharashtra State Board</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <p class="testimonial-text">"Being able to download study materials and access them offline has been incredibly useful since I don't always have good internet. Syllo truly understands the challenges we face."</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">A</div>
+                        <div class="author-details">
+                            <h4>Arjun</h4>
+                            <p>Class 11, Karnataka State Board</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta">
+        <div class="container">
+            <div class="count-box">
+                <h3>10,000+</h3>
+                <p>Students already improving their scores</p>
+            </div>
+            <h2>Ready to transform your learning experience?</h2>
+            <p>Join thousands of state board students who have already discovered the power of personalized learning with Syllo.</p>
+            <a href="#" class="btn">Download Now</a>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-container">
+                <div class="footer-section">
+                    <h3>Syllo</h3>
+                    <p>Making quality education accessible and affordable for state board students across India.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#features">Features</a></li>
+                        <li><a href="#how-it-works">How It Works</a></li>
+                        <li><a href="#pricing">Pricing</a></li>
+                        <li><a href="#testimonials">Testimonials</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Legal</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">Refund Policy</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Contact Us</h3>
+                    <ul class="footer-links">
+                        <li>📧 support@syllo.com</li>
+                        <li>📱 +91 9876543210</li>
+                        <li>
+                            <div class="social-links">
+                                <a href="#" class="social-link">Instagram</a>
+                                <a href="#" class="social-link">Twitter</a>
+                                <a href="#" class="social-link">LinkedIn</a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 Syllo. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
